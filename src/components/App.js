@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+  state = {
+    open: false
+  };
+
+  handleFetchClick = () => {
+    this.props.fetchStarWarsRequest();
+    this.setState({open: true})
+  };
+
+  handleConfirmClick = () => {
+    this.props.confirmFetchRequest();
+    this.setState({open: false});
+  };
+
   render() {
     return (
       <div>
@@ -13,7 +27,16 @@ class App extends Component {
             )
           }
         </div>
-        <button onClick={this.props.fetchStarWarsRequest}>Load More</button>
+        {/* <button onClick={this.props.fetchStarWarsRequest}>Load More</button> */}
+        <div>
+          <div 
+            style={!this.state.open ? {display: 'none'} : {}}
+            className='modal'
+          >
+            <button onClick={this.handleConfirmClick}>Confirm</button>
+          </div>
+        </div>
+        <button onClick={this.handleFetchClick}>Load More</button>
       </div>
     );
   }
